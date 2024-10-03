@@ -99,7 +99,7 @@ app.get('/contacts', isAuthenticated, (req, res) => {
   const contacts = [];
 
   // Read the CSV file
-  fs.createReadStream(path.join(__dirname, 'docs', 'risultati_moka.csv'))
+  fs.createReadStream(path.join(__dirname, 'resources', 'risultati_moka.csv'))
     .pipe(csv())
     .on('data', (row) => {
       contacts.push(row); // Push each row to contacts array
@@ -128,7 +128,7 @@ app.get('/contacts', isAuthenticated, (req, res) => {
 
 // Download the file
 app.get('/download-csv', (req, res) => {
-  const file = path.join(__dirname, 'docs', 'risultati_moka.csv'); // Update the path as necessary
+  const file = path.join(__dirname, 'resources', 'risultati_moka.csv'); // Update the path as necessary
   res.download(file, 'risultati_moka.csv', (err) => {
     if (err) {
       console.error("Error downloading the file:", err);
