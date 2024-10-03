@@ -10,6 +10,8 @@
       <body>
         <div class="container mt-4">
           <h1>Contacts</h1>
+          <button id="download-csv" class="btn btn-primary mb-3">Download CSV</button>
+
           <table class="table">
             <thead>
               <tr>
@@ -298,6 +300,45 @@ https://www.salute.gov.it › portale › temi</td>
               
             </tbody>
           </table>
+
+          <script>
+            document.getElementById('download-csv').addEventListener('click', function () {
+              // Sample data - you can replace this with your actual data
+              const contacts = [
+                { Fonte: 'Source 1', 'Nome Sito': 'Website 1', Email: 'email1@example.com', Telefono: '1234567890' },
+                { Fonte: 'Source 2', 'Nome Sito': 'Website 2', Email: 'email2@example.com', Telefono: '0987654321' },
+                // Add more contacts as needed
+              ];
+
+              // Create CSV content
+              const csvRows = [];
+              const headers = ['Source', 'Website Name', 'Email', 'Phone'];
+              csvRows.push(headers.join(','));
+
+              contacts.forEach(contact => {
+                const values = [
+                  contact.Fonte,
+                  contact['Nome Sito'],
+                  contact.Email,
+                  contact.Telefono
+                ];
+                csvRows.push(values.join(','));
+              });
+
+              const csvString = csvRows.join('\n');
+
+              // Create a blob and download it
+              const blob = new Blob([csvString], { type: 'text/csv' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.setAttribute('href', url);
+              a.setAttribute('download', 'contacts.csv');
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+            });
+          </script>
+
         </div>
       </body>
       </html>
